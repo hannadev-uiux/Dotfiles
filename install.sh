@@ -43,31 +43,13 @@ link "$DOTFILES/zsh/zshrc"          "$HOME/.zshrc"
 link "$DOTFILES/zsh/starship.toml"  "$HOME/.config/starship.toml"
 link "$DOTFILES/ghostty/config"     "$HOME/.config/ghostty/config"
 
-# 5) LazyVim (editor) com toques em português
-NVIM_DIR="$HOME/.config/nvim"
-if [ ! -d "$NVIM_DIR" ]; then
-  info "Instalando o LazyVim..."
-  git clone https://github.com/LazyVim/starter "$NVIM_DIR"
-  rm -rf "$NVIM_DIR/.git"
-  ok "LazyVim instalado"
-fi
-cp "$DOTFILES/nvim/lua/config/options.lua" "$NVIM_DIR/lua/config/options.lua"
-cp "$DOTFILES/nvim/lua/plugins/ptbr.lua"   "$NVIM_DIR/lua/plugins/ptbr.lua"
-# extras mínimos pra web (ajuste com :LazyExtras dentro do nvim)
-cat > "$NVIM_DIR/lazyvim.json" << 'JSON'
-{
-  "extras": [
-    "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lang.tailwind",
-    "lazyvim.plugins.extras.lang.json",
-    "lazyvim.plugins.extras.formatting.prettier",
-    "lazyvim.plugins.extras.linting.eslint"
-  ],
-  "news": {},
-  "version": 8
-}
-JSON
-ok "Config do LazyVim (pt-BR) aplicada"
+# 5) Neovim — config própria (UI/UX Design, pt-BR, estilo VSCode)
+# A config inteira vive nos dotfiles e é linkada (igual ao zsh/ghostty).
+# Os plugins (lazy.nvim) e os servidores de linguagem (Mason) se instalam
+# sozinhos na primeira vez que você abrir o 'nvim'.
+info "Instalando a config do Neovim..."
+link "$DOTFILES/nvim" "$HOME/.config/nvim"
+ok "Config do Neovim aplicada (plugins se instalam no 1º 'nvim')"
 
 echo ""
 info "Tudo pronto! 🌸 Próximos passos:"

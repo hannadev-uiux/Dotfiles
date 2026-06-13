@@ -82,6 +82,7 @@ alias enviar='git push'
 
 # Editor
 alias vim='nvim'
+alias code='nvim'    # 'code' abre o Neovim (substitui o comando do VS Code)
 
 # Ajuda
 alias atalhos='helpme'

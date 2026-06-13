@@ -1,11 +1,8 @@
 -- ~/.config/nvim/lua/plugins/ptbr.lua
--- Toques em português + tema combinando com o terminal (Catppuccin).
+-- Toques em português: rótulos do which-key em PT-BR.
+-- (O tema Catppuccin é configurado em colorscheme.lua, não aqui.)
 
 return {
-  -- Tema igual ao do terminal dela
-  { "catppuccin/nvim", name = "catppuccin", lazy = true },
-  { "LazyVim/LazyVim", opts = { colorscheme = "catppuccin" } },
-
   -- Menu do which-key com rótulos em PORTUGUÊS.
   -- É o que ela mais vê: aperta espaço e o menu explica cada grupo.
   {

@@ -8,6 +8,13 @@ font-thicken = true
 # Tema suave (veja outros com: ghostty +list-themes)
 theme = Catppuccin Mocha
 
+# Toque rosa 🌸 (mesma estética do Neovim): fundo levemente rosado e
+# cursor/seleção em rosa. Sobrescreve as cores do tema acima.
+background = #1e1d2e
+cursor-color = #ff69b4
+selection-background = #45324a
+selection-foreground = #f5e0e8
+
 # Conforto visual
 background-opacity = 0.97
 window-padding-x = 12
