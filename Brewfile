@@ -13,6 +13,7 @@ brew "neovim"
 brew "ripgrep"
 brew "fd"
 brew "lazygit"
+brew "tmux"                     # divisão de telas no terminal
 
 cask "ghostty"
 cask "font-caskaydia-cove-nerd-font"

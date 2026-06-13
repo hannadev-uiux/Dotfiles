@@ -43,13 +43,16 @@ link "$DOTFILES/zsh/zshrc"          "$HOME/.zshrc"
 link "$DOTFILES/zsh/starship.toml"  "$HOME/.config/starship.toml"
 link "$DOTFILES/ghostty/config"     "$HOME/.config/ghostty/config"
 
-# 5) Neovim — config própria (UI/UX Design, pt-BR, estilo VSCode)
+# 5) Neovim — LazyVim + Dracula, em pt-BR e com atalhos estilo VSCode
 # A config inteira vive nos dotfiles e é linkada (igual ao zsh/ghostty).
-# Os plugins (lazy.nvim) e os servidores de linguagem (Mason) se instalam
-# sozinhos na primeira vez que você abrir o 'nvim'.
-info "Instalando a config do Neovim..."
+# O LazyVim, os plugins (lazy.nvim) e os servidores de linguagem (Mason)
+# se instalam sozinhos na primeira vez que você abrir o 'nvim'.
+info "Instalando a config do Neovim (LazyVim)..."
 link "$DOTFILES/nvim" "$HOME/.config/nvim"
 ok "Config do Neovim aplicada (plugins se instalam no 1º 'nvim')"
+
+# 6) tmux — divisão de telas no terminal (prefixo Ctrl+a, splits | e -)
+link "$DOTFILES/tmux/tmux.conf" "$HOME/.tmux.conf"
 
 echo ""
 info "Tudo pronto! 🌸 Próximos passos:"

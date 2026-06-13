@@ -5,15 +5,8 @@ font-family = "CaskaydiaCove Nerd Font"
 font-size = 14
 font-thicken = true
 
-# Tema suave (veja outros com: ghostty +list-themes)
-theme = Catppuccin Mocha
-
-# Toque rosa 🌸 (mesma estética do Neovim): fundo levemente rosado e
-# cursor/seleção em rosa. Sobrescreve as cores do tema acima.
-background = #1e1d2e
-cursor-color = #ff69b4
-selection-background = #45324a
-selection-foreground = #f5e0e8
+# Tema Dracula (igual ao do seu marido). Veja outros com: ghostty +list-themes
+theme = Dracula
 
 # Conforto visual
 background-opacity = 0.97
