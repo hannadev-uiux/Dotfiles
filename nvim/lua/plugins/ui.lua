@@ -11,7 +11,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "catppuccin",
+        theme = "auto", -- detecta o tema ativo (catppuccin) sem depender da ordem de carga
         globalstatus = true,
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },

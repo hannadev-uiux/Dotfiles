@@ -30,6 +30,15 @@ return {
     keys = {
       { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Explorador de arquivos" },
     },
+    -- Carrega o neo-tree quando o nvim abre direto numa pasta (nvim . / code .)
+    init = function()
+      if vim.fn.argc(-1) == 1 then
+        local stat = vim.uv.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+        end
+      end
+    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -38,6 +47,7 @@ return {
     opts = {
       close_if_last_window = true,
       filesystem = {
+        hijack_netrw_behavior = "open_default", -- abrir uma pasta mostra o neo-tree
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
         filtered_items = { hide_dotfiles = false, hide_gitignored = true },
