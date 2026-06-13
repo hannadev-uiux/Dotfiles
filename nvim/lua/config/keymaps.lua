@@ -69,3 +69,104 @@ vim.cmd([[
   cnoreabbrev <expr> salvaresair   (getcmdtype()==':' && getcmdline()==#'salvaresair')   ? 'wqa' : 'salvaresair'
   cnoreabbrev <expr> sairsemsalvar (getcmdtype()==':' && getcmdline()==#'sairsemsalvar') ? 'qa!' : 'sairsemsalvar'
 ]])
+
+-- =====================================================================
+--  Traduz pro PORTUGUÊS os rótulos do menu (which-key) que vêm do LazyVim.
+--  Re-registra cada atalho preservando a ação, só trocando a descrição.
+--  (Os atalhos que não estiverem aqui continuam com o texto em inglês.)
+-- =====================================================================
+local traducoes = {
+  -- Menu principal (uma tecla)
+  ["<leader><space>"] = "Procurar arquivos",
+  ["<leader>,"] = "Trocar de aba (buffer)",
+  ["<leader>-"] = "Dividir janela embaixo",
+  ["<leader>."] = "Abrir/fechar rascunho",
+  ["<leader>/"] = "Buscar no projeto",
+  ["<leader>:"] = "Histórico de comandos",
+  ["<leader>?"] = "Atalhos deste arquivo",
+  ["<leader>`"] = "Voltar pra aba anterior",
+  ["<leader>|"] = "Dividir janela à direita",
+  ["<leader>e"] = "Explorador (raiz)",
+  ["<leader>E"] = "Explorador (pasta atual)",
+  ["<leader>K"] = "Ajuda da palavra sob o cursor",
+  ["<leader>l"] = "Plugins (Lazy)",
+  ["<leader>L"] = "Novidades do LazyVim",
+  ["<leader>S"] = "Escolher rascunho",
+  ["<leader>n"] = "Histórico de notificações",
+  -- Abas (tabs)
+  ["<leader><tab><tab>"] = "Nova aba (tab)",
+  ["<leader><tab>d"] = "Fechar aba (tab)",
+  ["<leader><tab>["] = "Aba anterior",
+  ["<leader><tab>]"] = "Próxima aba",
+  ["<leader><tab>o"] = "Fechar as outras abas",
+  -- Buffers (abas de arquivo)
+  ["<leader>bd"] = "Fechar a aba atual",
+  ["<leader>bo"] = "Fechar as outras abas",
+  ["<leader>bb"] = "Voltar pra aba anterior",
+  ["<leader>bp"] = "Fixar/desafixar a aba",
+  ["<leader>bP"] = "Fechar abas não-fixadas",
+  ["<leader>br"] = "Fechar abas à direita",
+  ["<leader>bl"] = "Fechar abas à esquerda",
+  -- Código
+  ["<leader>cf"] = "Formatar o arquivo",
+  ["<leader>ca"] = "Ações de código (lâmpada)",
+  ["<leader>cr"] = "Renomear símbolo",
+  ["<leader>cd"] = "Erros/avisos da linha",
+  ["<leader>cm"] = "Mason (instalar ferramentas)",
+  ["<leader>cs"] = "Símbolos do arquivo",
+  -- Arquivos / buscar
+  ["<leader>ff"] = "Procurar arquivos (raiz)",
+  ["<leader>fF"] = "Procurar arquivos (pasta atual)",
+  ["<leader>fr"] = "Arquivos recentes",
+  ["<leader>fb"] = "Abas abertas (buffers)",
+  ["<leader>fn"] = "Novo arquivo",
+  ["<leader>fc"] = "Abrir a config do Neovim",
+  ["<leader>fg"] = "Arquivos do git",
+  ["<leader>ft"] = "Terminal (raiz)",
+  -- Git
+  ["<leader>gg"] = "Lazygit (raiz)",
+  ["<leader>gb"] = "Quem alterou a linha (blame)",
+  ["<leader>gd"] = "Diferenças do git",
+  ["<leader>gs"] = "Status do git",
+  ["<leader>gl"] = "Commits (histórico)",
+  ["<leader>ge"] = "Explorador do git",
+  ["<leader>gf"] = "Histórico deste arquivo",
+  -- Sair / sessão
+  ["<leader>qq"] = "Sair de tudo",
+  ["<leader>qs"] = "Restaurar a sessão",
+  ["<leader>ql"] = "Restaurar a última sessão",
+  ["<leader>qd"] = "Não salvar a sessão",
+  -- Buscar (texto/símbolos)
+  ["<leader>sg"] = "Buscar texto (raiz)",
+  ["<leader>sw"] = "Buscar a palavra sob o cursor",
+  ["<leader>sr"] = "Buscar e substituir",
+  ["<leader>sk"] = "Ver todos os atalhos",
+  ["<leader>sh"] = "Páginas de ajuda",
+  ["<leader>ss"] = "Ir pra um símbolo",
+  ["<leader>sd"] = "Erros/avisos (diagnostics)",
+  ["<leader>st"] = "TODOs / FIXMEs",
+  ["<leader>sc"] = "Histórico de comandos",
+  -- Aparência (UI)
+  ["<leader>uC"] = "Trocar o tema (com prévia)",
+  ["<leader>uF"] = "Ligar/desligar formatar ao salvar",
+  ["<leader>uL"] = "Ligar/desligar número relativo",
+  ["<leader>ud"] = "Ligar/desligar erros/avisos",
+  ["<leader>uw"] = "Ligar/desligar quebra de linha",
+}
+
+local function aplicar_traducoes_menu()
+  for lhs, desc in pairs(traducoes) do
+    local m = vim.fn.maparg(lhs, "n", false, true)
+    if m and (m.callback or (m.rhs and m.rhs ~= "")) then
+      vim.keymap.set("n", lhs, m.callback or m.rhs, {
+        desc = desc,
+        silent = m.silent == 1,
+        expr = m.expr == 1,
+        noremap = m.noremap == 1,
+      })
+    end
+  end
+end
+
+-- Roda depois que o LazyVim já definiu os atalhos dele.
+vim.defer_fn(aplicar_traducoes_menu, 150)

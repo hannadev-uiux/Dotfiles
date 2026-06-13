@@ -62,6 +62,7 @@ alias vibe='claude'
 
 # Rodar scripts do package.json
 alias run='nr'          # abre um MENU dos scripts (escolha com as setas)
+alias executar='nr'     # mesma coisa que 'run', em português
 alias dev='nr dev'      # roda o script "dev"
 alias deps='ni'         # instala as dependências do projeto
 
