@@ -6,7 +6,7 @@ font-size = 14
 font-thicken = true
 
 # Tema suave (veja outros com: ghostty +list-themes)
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 # Conforto visual
 background-opacity = 0.97

@@ -1,14 +1,15 @@
-# 🌸 Setup de Terminal — Amigável
+# 🌸 Setup de Terminal da Hanna
 
 Ambiente de terminal pensado pra quem está começando: Ghostty + zsh com atalhos
 fáceis, sugestões, navegação por setas e foco em **vibe coding com Claude Code**.
 
 ## Instalar
 
+Clone o projeto do GitHub e rode o instalador:
+
 ```bash
-cd ~/Downloads
-unzip ana-setup.zip -d ~/        # cria ~/ana-setup
-cd ~/ana-setup
+git clone https://github.com/hannadev-uiux/Dotfiles.git ~/Dotfiles
+cd ~/Dotfiles
 chmod +x install.sh
 ./install.sh
 ```
@@ -17,7 +18,7 @@ Depois feche e abra o Ghostty, e digite `helpme`.
 
 ## O que vem configurado
 
-- **`vibe`** abre o Claude Code com o **fundo roxo** (pra nunca confundir com um
+- **`vibe`** abre o Claude Code com o **fundo laranja** (pra nunca confundir com um
   terminal normal).
 - **`run`** abre um menu dos scripts do `package.json` (escolha com as setas).
 - **Setas**: ↑↓ buscam no histórico, → aceita a sugestão em cinza,

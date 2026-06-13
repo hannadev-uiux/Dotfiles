@@ -8,10 +8,10 @@
 
 | Você digita | O que faz |
 |---|---|
-| `vibe` | Abre o Claude Code **com o fundo roxo** (assim você sabe que é o terminal dele) |
+| `vibe` | Abre o Claude Code **com o fundo laranja** (assim você sabe que é o terminal dele) |
 | `claude` | A mesma coisa que `vibe` |
 
-Quando o fundo está **roxo** e a aba diz **🤖 CLAUDE CODE**, você está conversando
+Quando o fundo está **laranja** e a aba diz **🤖 CLAUDE CODE**, você está conversando
 com o Claude Code. Quando o fundo volta ao normal, é um terminal comum.
 
 ---

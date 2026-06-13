@@ -1,7 +1,7 @@
 # ~/.zshrc — setup amigável (iniciante)
 # Digite 'helpme' a qualquer momento pra ver seus atalhos.
 
-export DOTFILES="${DOTFILES:-$HOME/ana-setup}"
+export DOTFILES="${DOTFILES:-$HOME/Dotfiles}"
 export EDITOR=nvim
 export COLORTERM=truecolor
 
@@ -90,10 +90,10 @@ alias vimajuda='vimhelp'
 ############################################################################
 ##########  FUNÇÕES  #######################################################
 ############################################################################
-# Destaca o terminal enquanto o Claude Code roda (fundo roxo + título na aba),
-# pra você nunca confundir com um terminal "normal" aberto numa pasta.
+# Destaca o terminal enquanto o Claude Code roda (fundo laranja suave + título
+# na aba), pra você nunca confundir com um terminal "normal" aberto numa pasta.
 claude() {
-  printf '\e]11;#2b2042\a'                          # fundo roxo (Claude Code)
+  printf '\e]11;#2e2113\a'                          # fundo laranja suave (Claude Code)
   printf '\e]0;🤖 CLAUDE CODE — %s\a' "${PWD##*/}"   # título da aba
   command claude "$@"
   local code=$?
