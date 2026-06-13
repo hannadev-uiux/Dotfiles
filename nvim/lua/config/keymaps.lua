@@ -152,6 +152,27 @@ local traducoes = {
   ["<leader>uL"] = "Ligar/desligar número relativo",
   ["<leader>ud"] = "Ligar/desligar erros/avisos",
   ["<leader>uw"] = "Ligar/desligar quebra de linha",
+  -- Abas (tabs) que faltavam
+  ["<leader><tab>f"] = "Primeira aba",
+  ["<leader><tab>l"] = "Última aba",
+  -- Janelas: navegação (Ctrl + h/j/k/l)
+  ["<C-h>"] = "Ir pra janela à esquerda",
+  ["<C-j>"] = "Ir pra janela de baixo",
+  ["<C-k>"] = "Ir pra janela de cima",
+  ["<C-l>"] = "Ir pra janela à direita",
+  -- Janelas: tamanho (Ctrl + setas)
+  ["<C-Up>"] = "Aumentar altura da janela",
+  ["<C-Down>"] = "Diminuir altura da janela",
+  ["<C-Left>"] = "Diminuir largura da janela",
+  ["<C-Right>"] = "Aumentar largura da janela",
+  -- Movimento e edição
+  ["<A-j>"] = "Mover linha p/ baixo",
+  ["<A-k>"] = "Mover linha p/ cima",
+  ["<C-CR>"] = "Seleção incremental (treesitter)",
+  ["~"] = "Trocar maiúscula/minúscula",
+  ["{"] = "Parágrafo anterior",
+  ["}"] = "Próximo parágrafo",
+  ["<Esc>"] = "Limpar busca destacada",
 }
 
 local function aplicar_traducoes_menu()
@@ -170,3 +191,74 @@ end
 
 -- Roda depois que o LazyVim já definiu os atalhos dele.
 vim.defer_fn(aplicar_traducoes_menu, 150)
+
+-- =====================================================================
+--  Traduz pro PORTUGUÊS o menu de ajuda do explorador (neo-tree, tecla ?).
+--  Mapeia pela descrição atual (em inglês) → PT, preservando a ação.
+-- =====================================================================
+local traducoes_neotree = {
+  ["add"] = "criar arquivo/pasta",
+  ["add_directory"] = "criar pasta",
+  ["copy"] = "copiar",
+  ["copy_to_clipboard"] = "copiar (área de transferência)",
+  ["cut_to_clipboard"] = "recortar",
+  ["paste_from_clipboard"] = "colar",
+  ["delete"] = "excluir",
+  ["move"] = "mover",
+  ["rename"] = "renomear",
+  ["rename_basename"] = "renomear (sem a extensão)",
+  ["open"] = "abrir",
+  ["open_split"] = "abrir em divisão horizontal",
+  ["open_vsplit"] = "abrir em divisão vertical",
+  ["open_tabnew"] = "abrir em nova aba",
+  ["open_with_window_picker"] = "abrir escolhendo a janela",
+  ["close_node"] = "fechar a pasta",
+  ["close_window"] = "fechar o explorador",
+  ["refresh"] = "atualizar",
+  ["navigate_up"] = "subir uma pasta",
+  ["set_root"] = "definir como pasta raiz",
+  ["toggle_hidden"] = "mostrar/ocultar ocultos",
+  ["toggle_preview"] = "prévia (liga/desliga)",
+  ["toggle_auto_expand_width"] = "auto-expandir a largura",
+  ["show_file_details"] = "detalhes do arquivo",
+  ["show_help"] = "ajuda",
+  ["fuzzy_finder"] = "busca rápida",
+  ["fuzzy_finder_directory"] = "busca rápida de pastas",
+  ["fuzzy_sorter"] = "ordenação rápida",
+  ["filter_on_submit"] = "filtrar (ao digitar)",
+  ["clear_filter"] = "limpar o filtro",
+  ["prev_source"] = "fonte anterior",
+  ["next_source"] = "próxima fonte",
+  ["clear_selection"] = "limpar a seleção",
+  ["scroll_preview"] = "rolar a prévia",
+  ["clear_clipboard"] = "limpar a área de transferência",
+  ["toggle_node"] = "abrir/fechar a pasta",
+  ["select"] = "selecionar",
+  ["trash"] = "mandar pra lixeira",
+  ["restore_from_trash"] = "restaurar da lixeira",
+  -- descrições já em texto (vindas do LazyVim)
+  ["Open with System Application"] = "abrir no app do sistema",
+  ["Copy Path to Clipboard"] = "copiar o caminho",
+}
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "neo-tree",
+  callback = function(ev)
+    vim.schedule(function()
+      if not vim.api.nvim_buf_is_valid(ev.buf) then
+        return
+      end
+      for _, m in ipairs(vim.api.nvim_buf_get_keymap(ev.buf, "n")) do
+        local novo = m.desc and traducoes_neotree[m.desc]
+        if novo and m.callback then
+          vim.keymap.set("n", m.lhs, m.callback, {
+            buffer = ev.buf,
+            desc = novo,
+            silent = m.silent == 1,
+            nowait = m.nowait == 1,
+          })
+        end
+      end
+    end)
+  end,
+})
