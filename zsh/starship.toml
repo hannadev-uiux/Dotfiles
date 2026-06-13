@@ -1,0 +1,24 @@
+# ~/.config/starship.toml — prompt limpa e amigável
+add_newline = true
+
+# Mostra bem visível em qual PASTA você está (ajuda a não se perder)
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+style = "bold cyan"
+read_only = " 🔒"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "yellow"
+
+[nodejs]
+symbol = " "
+style = "green"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

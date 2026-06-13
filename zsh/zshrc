@@ -1,0 +1,148 @@
+# ~/.zshrc — setup amigável (iniciante)
+# Digite 'helpme' a qualquer momento pra ver seus atalhos.
+
+export DOTFILES="${DOTFILES:-$HOME/ana-setup}"
+export EDITOR=nvim
+export COLORTERM=truecolor
+
+############################################################################
+##########  HISTÓRICO  #####################################################
+############################################################################
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY          # histórico compartilhado entre janelas
+setopt HIST_IGNORE_ALL_DUPS   # não repete comandos iguais
+setopt HIST_IGNORE_SPACE      # comando começando com espaço não vai pro histórico
+setopt AUTO_CD                # digitar o nome de uma pasta já entra nela
+
+############################################################################
+##########  ATALHOS DE SETA (↑ ↓ ← →)  #####################################
+############################################################################
+# ↑ / ↓ : busca no histórico pelo que você já digitou
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
+
+# Option + ← / → : pula uma PALAVRA por vez
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
+bindkey '^[^[[C'  forward-word
+bindkey '^[^[[D'  backward-word
+# Option + Delete : apaga a palavra anterior
+bindkey '^[^?' backward-kill-word
+# Home / End
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+
+############################################################################
+##########  AUTOCOMPLETAR COM SETAS (Tab)  #################################
+############################################################################
+zstyle ':completion:*' menu select                         # navega o menu com as setas
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'  # ignora maiúsc/minúsc
+autoload -Uz compinit && compinit -C
+
+############################################################################
+##########  SUGESTÕES (→ aceita)  ##########################################
+############################################################################
+BREW="$(brew --prefix 2>/dev/null)"
+# Texto cinza sugerindo o comando: aperte → (seta direita) pra aceitar
+[ -f "$BREW/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+  source "$BREW/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+############################################################################
+##########  ATALHOS (ALIASES)  #############################################
+############################################################################
+# Claude Code (também pode chamar de 'vibe')
+alias vibe='claude'
+
+# Rodar scripts do package.json
+alias run='nr'          # abre um MENU dos scripts (escolha com as setas)
+alias dev='nr dev'      # roda o script "dev"
+alias deps='ni'         # instala as dependências do projeto
+
+# Dia a dia
+alias c='clear'
+alias cls='clear'
+alias o='open .'        # abre a pasta atual no Finder
+alias ..='cd ..'
+alias ...='cd ../..'
+alias proj='cd ~/projects'   # ajuste pra sua pasta de projetos
+alias ls='ls -G'
+alias ll='ls -lah'
+
+# Git em português (simples)
+alias status='git status'
+alias baixar='git pull'
+alias enviar='git push'
+
+# Editor
+alias vim='nvim'
+
+# Ajuda
+alias atalhos='helpme'
+alias vimajuda='vimhelp'
+
+############################################################################
+##########  FUNÇÕES  #######################################################
+############################################################################
+# Destaca o terminal enquanto o Claude Code roda (fundo roxo + título na aba),
+# pra você nunca confundir com um terminal "normal" aberto numa pasta.
+claude() {
+  printf '\e]11;#2b2042\a'                          # fundo roxo (Claude Code)
+  printf '\e]0;🤖 CLAUDE CODE — %s\a' "${PWD##*/}"   # título da aba
+  command claude "$@"
+  local code=$?
+  printf '\e]111\a'                                 # volta o fundo ao normal
+  printf '\e]0;%s\a' "${PWD##*/}"                   # volta o título
+  return $code
+}
+
+# Salva seu trabalho no git. Use: salvar "o que você mudou"
+salvar() {
+  if [ -z "$1" ]; then
+    echo 'Use assim:  salvar "descreva o que você mudou"'
+    return 1
+  fi
+  git add -A && git commit -m "$1"
+}
+
+# Mostra a cheatsheet de atalhos do TERMINAL renderizada (sai com q)
+helpme() {
+  local doc="$DOTFILES/docs/atalhos.md"
+  if command -v glow >/dev/null 2>&1; then
+    glow -p "$doc"
+  else
+    less "$doc"
+  fi
+}
+
+# Mostra a cheatsheet do VIM / Neovim renderizada (sai com q)
+vimhelp() {
+  local doc="$DOTFILES/docs/vim.md"
+  if command -v glow >/dev/null 2>&1; then
+    glow -p "$doc"
+  else
+    less "$doc"
+  fi
+}
+
+############################################################################
+##########  PROMPT (starship)  #############################################
+############################################################################
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+
+############################################################################
+##########  DICA DE BOAS-VINDAS  ###########################################
+############################################################################
+echo "💡 Dica: digite 'helpme' pra ver seus atalhos · 'vibe' abre o Claude Code"
+
+############################################################################
+##########  CORES NA DIGITAÇÃO (precisa ser o ÚLTIMO)  #####################
+############################################################################
+[ -f "$BREW/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+  source "$BREW/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

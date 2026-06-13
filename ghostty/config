@@ -1,0 +1,26 @@
+# ~/.config/ghostty/config — setup amigável
+
+# Fonte legível com ícones (instalada pelo install.sh)
+font-family = "CaskaydiaCove Nerd Font"
+font-size = 14
+font-thicken = true
+
+# Tema suave (veja outros com: ghostty +list-themes)
+theme = catppuccin-mocha
+
+# Conforto visual
+background-opacity = 0.97
+window-padding-x = 12
+window-padding-y = 10
+cursor-style = bar
+cursor-style-blink = true
+mouse-hide-while-typing = true
+copy-on-select = true
+
+# Faz a tecla Option funcionar como Alt (necessário pros atalhos de seta
+# pularem palavra). Não atrapalha acentos no dia a dia.
+macos-option-as-alt = true
+
+# Confirma antes de fechar uma janela com algo rodando (evita fechar o
+# Claude Code sem querer)
+confirm-close-surface = true
